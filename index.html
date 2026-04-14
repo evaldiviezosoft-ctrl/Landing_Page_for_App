@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+  <!-- ============================================
+       META BÁSICAS & SEGURIDAD
+       ============================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Content Security Policy (CSP) -->
+  <meta http-equiv="Content-Security-Policy" content="
+          default-src 'self';
+          script-src  'self';
+          style-src   'self' https://fonts.googleapis.com;
+          font-src    'self' https://fonts.gstatic.com;
+          img-src     'self' data: https:;
+          connect-src 'self' https://formspree.io;
+          frame-src   'none';
+          object-src  'none';
+          base-uri    'self';
+          form-action 'self' https://formspree.io;
+        ">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- ============================================
+       SEO — Título, Descripción & Canonical
+       ============================================ -->
+  <title>ControlGastos — Proyecta Tu Saldo Real Hasta Tu Próxima Quincena | App Finanzas Personales</title>
+  <meta name="description"
+    content="ControlGastos es la app de finanzas personales que proyecta cuánto dinero real te queda hasta tu próxima quincena o día de pago. Controla gastos hormiga, configura rutinas reales y nunca más llegues a fin de mes sin saber a dónde se fue tu dinero. 100% Offline y Gratis.">
+  <meta name="keywords"
+    content="app control de gastos, proyección de saldo, gastos hormiga, finanzas personales, quincena, presupuesto personal, app finanzas offline, control gastos flutter, saldo disponible, fin de mes">
+  <meta name="author" content="ControlGastos">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://tu-dominio.com/">
+
+  <!-- ============================================
+       OPEN GRAPH (Facebook, LinkedIn, WhatsApp)
+       ============================================ -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tu-dominio.com/">
+  <meta property="og:title" content="ControlGastos — Por fin una app que entiende tus quincenas">
+  <meta property="og:description"
+    content="Proyecta cuánto dinero real te queda hasta tu próxima quincena. Controla gastos hormiga, configura rutinas y nunca más llegues al cobro sin saber a dónde se fue tu plata. 100% Offline y Gratis.">
+  <meta property="og:image" content="https://tu-dominio.com/assets/img/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="es_PE">
+  <meta property="og:site_name" content="ControlGastos">
+
+  <!-- ============================================
+       TWITTER CARDS
+       ============================================ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ControlGastos — Proyecta Tu Saldo Real Hasta Tu Próxima Quincena">
+  <meta name="twitter:description"
+    content="La app que sabe que no cobras el día 1. Controla gastos hormiga y proyecta tu dinero disponible hoy. 100% Offline y Gratis.">
+  <meta name="twitter:image" content="https://tu-dominio.com/assets/img/og-cover.png">
+
+  <!-- ============================================
+       DATOS ESTRUCTURADOS (JSON-LD) — Rich Snippets
+       ============================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "ControlGastos",
+    "operatingSystem": "Android",
+    "applicationCategory": "FinanceApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "PEN"
+    },
+    "description": "App de control de gastos que proyecta tu saldo real disponible hasta tu próxima quincena o día de pago. Controla gastos hormiga, configura reglas recurrentes y presupuestos por subcategoría. 100% Offline.",
+    "url": "https://tu-dominio.com/",
+    "image": "https://tu-dominio.com/assets/img/og-cover.png",
+    "featureList": [
+      "Proyección de saldo hasta próximo día de cobro",
+      "Control de gastos hormiga",
+      "Reglas recurrentes flexibles",
+      "Presupuestos por subcategoría",
+      "Control de tarjeta de crédito",
+      "Funciona 100% offline sin internet"
+    ],
+    "author": {
+      "@type": "Person",
+      "name": "ControlGastos"
+    },
+    "softwareVersion": "1.0-beta",
+    "releaseNotes": "Beta Privada — Acceso anticipado disponible mediante registro."
+  }
+  </script>
+
+  <!-- FAQPage Schema — potencia el SEO con Featured Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cómo sé cuánto dinero me queda hasta mi próxima quincena?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ControlGastos calcula tu saldo disponible restando tus gastos fijos, recurrentes diarios y rutinas configuradas desde hoy hasta tu próximo día de pago. El resultado es tu límite real para gastar en extras hoy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿La app necesita conexión a internet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. ControlGastos es 100% offline. Todos tus datos financieros se almacenan localmente en tu teléfono usando Hive, una base de datos ultra rápida. No necesitas cuenta, no necesitas internet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué son los gastos hormiga?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Los gastos hormiga son pequeños pagos diarios que parecen insignificantes pero que acumulados drenan tu sueldo: el café de la mañana, la botella de agua, el dulce, el bus. ControlGastos tiene una sección dedicada a rastrearlos y visibilizarlos en tu presupuesto."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Puedo configurar gastos que no son diarios, como la gasolina cada dos semanas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Las Reglas Recurrentes Flexibles de ControlGastos permiten configurar gastos por días específicos de la semana, semanas alternas, o cualquier patrón de tu vida real. La app los descuenta automáticamente de tu proyección."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ============================================
+       FUENTES & ESTILOS
+       ============================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+  <!-- ============================================
+       HEADER — Navegación Sticky
+       ============================================ -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-container" aria-label="Navegación principal">
+      <!-- Logo -->
+      <a href="#hero" class="logo" id="logo-link" aria-label="ControlGastos — Ir al inicio">
+        <span class="logo-icon" aria-hidden="true">◈</span>
+        <span class="logo-text">Control<span class="logo-accent">Gastos</span></span>
+      </a>
+
+      <!-- Hamburger Button (Mobile) -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false"
+        aria-controls="nav-menu">
+        <span class="hamburger-line" aria-hidden="true"></span>
+        <span class="hamburger-line" aria-hidden="true"></span>
+        <span class="hamburger-line" aria-hidden="true"></span>
+      </button>
+
+      <!-- Navigation Links -->
+      <ul class="nav-menu" id="nav-menu" role="list">
+        <li><a href="#features" class="nav-link">Características</a></li>
+        <li><a href="#como-funciona" class="nav-link">Cómo Funciona</a></li>
+        <li><a href="#privacidad" class="nav-link">Privacidad</a></li>
+        <li>
+          <a href="#beta" class="nav-link nav-cta" id="nav-beta-btn">
+            Acceso Beta
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="hero-container">
+        <!-- Texto Hero -->
+        <div class="hero-content">
+          <span class="hero-badge" aria-label="Estado de la app">💡 Beta Privada — Android · Hecho en Flutter</span>
+          <h1 id="hero-title" class="hero-title">
+            Por fin, una app de finanzas que sabe que <span class="gradient-text">no cobras el día 1.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Deja de anotar números vacíos. Configura tus quincenas reales,
+            tus rutinas diarias y descubre exactamente cuánto dinero puedes
+            gastar <strong>hoy</strong> sin comprometer tu próximo cobro.
+          </p>
+
+          <!-- Botones Play Store / App Store (Próximamente) -->
+          <div class="hero-buttons">
+            <div class="btn-store-wrapper" id="btn-google-play-wrapper">
+              <button class="btn btn-primary btn-store btn-coming-soon" id="btn-google-play" disabled
+                aria-label="Google Play — Próximamente disponible">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.922V2.736a1 1 0 0 1 .609-.922zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 0 1 0 1.38l-2.302 2.302L15.395 12l2.303-2.492zM5.864 2.658L16.8 9.177l-2.302 2.49-8.635-9.009z" />
+                </svg>
+                <span class="btn-store-text">
+                  <span class="btn-store-sub">Próximamente en</span>
+                  <span class="btn-store-main">Google Play</span>
+                </span>
+              </button>
+              <span class="coming-soon-badge">Pronto</span>
+            </div>
+
+            <a href="#beta" class="btn btn-secondary" id="btn-beta-access"
+              aria-label="Solicitar acceso a la beta privada">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                <line x1="6" y1="1" x2="6" y2="4" />
+                <line x1="10" y1="1" x2="10" y2="4" />
+                <line x1="14" y1="1" x2="14" y2="4" />
+              </svg>
+              <span>Pedir Acceso Beta</span>
+            </a>
+          </div>
+
+          <!-- Indicadores clave -->
+          <div class="hero-indicators">
+            <div class="indicator-item" id="indicator-offline">
+              <span class="indicator-dot indicator-green" aria-hidden="true"></span>
+              <span>100% Offline</span>
+            </div>
+            <div class="indicator-item" id="indicator-free">
+              <span class="indicator-dot indicator-cyan" aria-hidden="true"></span>
+              <span>Completamente gratis</span>
+            </div>
+            <div class="indicator-item" id="indicator-private">
+              <span class="indicator-dot indicator-purple" aria-hidden="true"></span>
+              <span>Sin cuenta, sin nube</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mockup del Teléfono -->
+        <div class="hero-image" aria-hidden="true">
+          <div class="phone-glow"></div>
+          <img src="assets/img/phone-mockup.png"
+            alt="Dashboard de ControlGastos mostrando el saldo disponible real hasta la próxima quincena con categorías de gastos"
+            width="480" height="560" loading="eager" class="phone-mockup">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         EL PROBLEMA SECTION
+         ============================================ -->
+    <section class="problema" id="problema" aria-labelledby="problema-title">
+      <div class="section-container">
+        <span class="section-tag">El Problema</span>
+        <h2 id="problema-title" class="section-title">¿Otra quincena sin saber <span class="gradient-text">a dónde se fue tu dinero?</span></h2>
+        <p class="section-subtitle">Has intentado hojas de Excel, apps genéricas y hasta anotar en papel. Pero ninguna entiende cómo funciona el dinero en la vida real.</p>
+
+        <div class="problema-grid">
+          <article class="problema-card" id="problema-excel">
+            <div class="problema-icon" aria-hidden="true">😤</div>
+            <h3 class="problema-card-title">Las apps te tratan como si cobraras el día 1</h3>
+            <p class="problema-card-desc">Los presupuestos "mensuales" no sirven cuando tu quincena cae el 13 y el 28. Ninguna app te dice cuánto te queda para llegar al próximo cobro específico.</p>
+          </article>
+
+          <article class="problema-card" id="problema-hormiga">
+            <div class="problema-icon" aria-hidden="true">🐜</div>
+            <h3 class="problema-card-title">Los gastos invisibles te devoran el sueldo</h3>
+            <p class="problema-card-desc">S/ 5 por el agua. S/ 3.50 de pasaje. S/ 8 del almuerzo. Solo. No parecen nada. Pero sumados en el mes: ahí está la respuesta a por qué siempre "falta" dinero.</p>
+          </article>
+
+          <article class="problema-card" id="problema-fin-mes">
+            <div class="problema-icon" aria-hidden="true">😰</div>
+            <h3 class="problema-card-title">Llegas al cobro sin saber cuánto gastar hoy</h3>
+            <p class="problema-card-desc">Tienes S/ 200 en el bolsillo, pero ¿es para gastar libremente o ya está comprometido en pasajes, almuerzos y la cuota del préstamo de esta semana? Sin proyección real, no lo sabes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         FEATURES SECTION
+         ============================================ -->
+    <section class="features" id="features" aria-labelledby="features-title">
+      <div class="section-container">
+        <span class="section-tag">Características</span>
+        <h2 id="features-title" class="section-title">No es un registro de gastos. <span class="gradient-text">Es un simulador financiero.</span></h2>
+        <p class="section-subtitle">Un conjunto de herramientas diseñadas para la vida real, no para el caso ideal que nadie vive.</p>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <article class="feature-card" id="feature-proyeccion">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Proyección de Saldo Inteligente</h3>
+            <p class="feature-desc">El algoritmo toma tu dinero actual, resta tus gastos fijos y recurrentes diarios hasta tu próximo día de cobro y te dice exactamente <strong>cuánto tienes disponible hoy</strong> para gastar en extras. No el saldo de tu cuenta — tu saldo real.</p>
+            <span class="feature-badge feature-badge-star" aria-label="Característica destacada">⭐ Diferenciador clave</span>
+          </article>
+
+          <!-- Feature 2 -->
+          <article class="feature-card" id="feature-hormiga">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                <line x1="11" y1="8" x2="11" y2="14" />
+                <line x1="8" y1="11" x2="14" y2="11" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Gastos Hormiga bajo la Lupa</h3>
+            <p class="feature-desc">Sección dedicada a cazar esos pequeños pagos diarios invisibles: el desayuno, el agua, el dulce, el bus. Los visualizas, los mides, y la app los descuenta de tu proyección automáticamente. Porque S/ 5 al día son S/ 150 al mes.</p>
+          </article>
+
+          <!-- Feature 3 -->
+          <article class="feature-card" id="feature-recurrentes">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="17 1 21 5 17 9" />
+                <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                <polyline points="7 23 3 19 7 15" />
+                <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Reglas Recurrentes Flexibles</h3>
+            <p class="feature-desc">La vida real no es lineal. Configura: <em>"Juego fútbol los martes, jueves y domingos por S/ 10"</em> o <em>"Gasto en gasolina S/ 20 pero solo en semanas alternas"</em>. La app contabiliza esto automáticamente en tu proyección.</p>
+          </article>
+
+          <!-- Feature 4 -->
+          <article class="feature-card" id="feature-subcategorias">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Presupuestos por Subcategorías</h3>
+            <p class="feature-desc">No sirve solo poner "Comida". Aquí es "Desayuno S/ 80", "Almuerzo S/ 200" y "Antojos S/ 50" — cada uno con su propia barra de progreso y alertas visuales cuando te acercas al límite.</p>
+          </article>
+
+          <!-- Feature 5 -->
+          <article class="feature-card" id="feature-tarjetas">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                <line x1="1" y1="10" x2="23" y2="10" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Eventos Planificados y Tarjetas Blindadas</h3>
+            <p class="feature-desc">Aparta automáticamente el dinero de las cuotas del préstamo apenas cobras. Controla el pago de tu tarjeta de crédito para que jamás sea una sorpresa. El dinero comprometido ya no aparece como "disponible".</p>
+          </article>
+
+          <!-- Feature 6 -->
+          <article class="feature-card" id="feature-offline">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                <line x1="12" y1="18" x2="12.01" y2="18" />
+              </svg>
+            </div>
+            <h3 class="feature-title">100% Privada y Offline</h3>
+            <p class="feature-desc">Tus datos financieros no van a ningún servidor. Viven en tu teléfono, protegidos y ultrarrápidos gracias a Hive. Sin cuenta, sin contraseña, sin conexión a internet. Tu dinero es tuyo, punto.</p>
+            <span class="feature-badge feature-badge-green">🔒 Cero servidores</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         CÓMO FUNCIONA SECTION
+         ============================================ -->
+    <section class="como-funciona" id="como-funciona" aria-labelledby="como-funciona-title">
+      <div class="section-container">
+        <span class="section-tag">Cómo Funciona</span>
+        <h2 id="como-funciona-title" class="section-title">Retoma el control <span class="gradient-text">en 3 simples pasos.</span></h2>
+        <p class="section-subtitle">Sin tutoriales interminables. En menos de 5 minutos ya tienes tu primera proyección real.</p>
+
+        <div class="steps-grid">
+          <article class="step-card" id="step-1">
+            <div class="step-number" aria-hidden="true">01</div>
+            <div class="step-connector" aria-hidden="true"></div>
+            <div class="step-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+            </div>
+            <h3 class="step-title">Ingresa tu realidad</h3>
+            <p class="step-desc">Configura tus fechas exactas de pago — el 13 y el 28, el último día del mes, o como sea que cobres tú. También tu saldo inicial.</p>
+          </article>
+
+          <article class="step-card" id="step-2">
+            <div class="step-number" aria-hidden="true">02</div>
+            <div class="step-connector" aria-hidden="true"></div>
+            <div class="step-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </svg>
+            </div>
+            <h3 class="step-title">Dibuja tu rutina</h3>
+            <p class="step-desc">Añade tus gastos fijos (alquiler, cuotas), tus rutinas diarias (pasajes, almuerzo) y tus reglas especiales (gasolina alterna, la pichanga del jueves).</p>
+          </article>
+
+          <article class="step-card" id="step-3">
+            <div class="step-number" aria-hidden="true">03</div>
+            <div class="step-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+              </svg>
+            </div>
+            <h3 class="step-title">Descubre tu límite de hoy</h3>
+            <p class="step-desc">Abre la app cualquier día y ve al instante: tu <strong>saldo real disponible</strong> después de descontar todo lo que está comprometido hasta tu próximo cobro. Gasta con confianza, no con miedo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         PRIVACIDAD SECTION (antes: Security)
+         ============================================ -->
+    <section class="privacidad" id="privacidad" aria-labelledby="privacidad-title">
+      <div class="section-container">
+        <div class="privacidad-layout">
+          <!-- Imagen / Visual -->
+          <div class="privacidad-visual" aria-hidden="true">
+            <div class="privacy-icon-wrapper">
+              <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" class="privacy-main-icon" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <div class="privacy-glow" aria-hidden="true"></div>
+            </div>
+            <div class="privacy-stat-chip" id="privacy-stat-offline">
+              <span aria-hidden="true">📵</span>
+              <span>Sin internet requerido</span>
+            </div>
+            <div class="privacy-stat-chip" id="privacy-stat-data">
+              <span aria-hidden="true">🏠</span>
+              <span>Datos solo en tu teléfono</span>
+            </div>
+          </div>
+
+          <!-- Contenido de Privacidad -->
+          <div class="privacidad-content">
+            <span class="section-tag">Privacidad Total</span>
+            <h2 id="privacidad-title" class="section-title">Tus finanzas no <span class="gradient-text">necesitan una nube.</span></h2>
+            <p class="section-subtitle">
+              Otras apps te piden conectar tu banco, crear cuenta y enviar tus datos a sus servidores.
+              ControlGastos funciona diferente: <strong>tus datos nunca salen de tu teléfono.</strong>
+            </p>
+
+            <ul class="privacidad-list" role="list">
+              <li class="privacidad-item" id="privacidad-sin-internet">
+                <span class="privacidad-check" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Sin internet — funciona en cualquier lugar</strong>
+                  <p>Metro, avión, zona sin señal. La app siempre está ahí. Gracias a Hive, una base de datos local de alto rendimiento.</p>
+                </div>
+              </li>
+              <li class="privacidad-item" id="privacidad-sin-cuenta">
+                <span class="privacidad-check" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Sin cuenta, sin registro obligatorio</strong>
+                  <p>No pedimos tu nombre, correo ni ningún dato personal para usar la app. Ábrela y empieza.</p>
+                </div>
+              </li>
+              <li class="privacidad-item" id="privacidad-sin-banco">
+                <span class="privacidad-check" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Sin conexión a bancos ni tarjetas</strong>
+                  <p>No accedemos a tu banca online. Tú ingresas los datos manualmente. Control total, sin riesgos.</p>
+                </div>
+              </li>
+              <li class="privacidad-item" id="privacidad-sin-venta">
+                <span class="privacidad-check" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Cero venta de datos, cero publicidad</strong>
+                  <p>No somos el producto. Tu información financiera nunca es compartida ni monetizada.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         BETA / CTA SECTION
+         ============================================ -->
+    <section class="beta" id="beta" aria-labelledby="beta-title">
+      <div class="section-container">
+        <div class="beta-card">
+          <span class="section-tag">Beta Privada</span>
+          <h2 id="beta-title" class="section-title">Sé de los primeros en <span class="gradient-text">probarla.</span></h2>
+          <p class="section-subtitle">
+            La app está en fase de pruebas y pronto llegará a Google Play. Regístrate para obtener acceso anticipado y ser notificado en el lanzamiento. Sin spam. Solo un mensaje cuando esté lista.
+          </p>
+
+          <form class="beta-form" id="waitlist-form" action="https://formspree.io/f/TU_FORM_ID" method="POST"
+            novalidate>
+            <div class="form-group">
+              <label for="user-name" class="form-label">Nombre completo</label>
+              <input type="text" id="user-name" name="name" class="form-input" placeholder="Ej: Carlos García" required
+                minlength="2" maxlength="100" pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s'-]{2,100}$" autocomplete="name"
+                aria-describedby="name-error">
+              <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="user-email" class="form-label">Correo electrónico</label>
+              <input type="email" id="user-email" name="email" class="form-input"
+                placeholder="Ej: carlos@correo.com" required maxlength="254" autocomplete="email"
+                aria-describedby="email-error">
+              <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <div class="form-group form-consent">
+              <input type="checkbox" id="consent-check" name="consent" required aria-describedby="consent-error">
+              <label for="consent-check" class="consent-label">
+                Acepto la <a href="privacy.html" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>
+                y los <a href="terms.html" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>.
+              </label>
+              <span class="form-error" id="consent-error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <!-- Honeypot anti-bot -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="hp-website">No llenar este campo</label>
+              <input type="text" id="hp-website" name="_gotcha" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+              <span class="btn-text">Quiero Acceso Anticipado</span>
+              <span class="btn-loader" aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <!-- Mensaje de éxito -->
+          <div class="form-success" id="form-success" role="status" aria-live="polite" hidden>
+            <span class="success-icon" aria-hidden="true">🎉</span>
+            <p class="success-title">¡Estás en la lista!</p>
+            <p class="success-text">Te avisaremos en cuanto ControlGastos esté disponible en Google Play.</p>
+          </div>
+
+          <!-- Garantías debajo del formulario -->
+          <div class="beta-guarantees">
+            <span class="guarantee-item" id="guarantee-spam">✓ Cero spam</span>
+            <span class="guarantee-item" id="guarantee-free">✓ App 100% gratis</span>
+            <span class="guarantee-item" id="guarantee-data">✓ Sin venta de datos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         FAQ SECTION (SEO — Featured Snippets)
+         ============================================ -->
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="section-container">
+        <span class="section-tag">Preguntas Frecuentes</span>
+        <h2 id="faq-title" class="section-title">Lo que todos <span class="gradient-text">se preguntan.</span></h2>
+
+        <div class="faq-list" id="faq-list">
+
+          <details class="faq-item" id="faq-quincena">
+            <summary class="faq-question">¿Cómo sé cuánto dinero me queda hasta mi próxima quincena?</summary>
+            <div class="faq-answer">
+              <p>ControlGastos calcula tu <strong>saldo disponible real</strong> restando tus gastos fijos, recurrentes diarios y rutinas configuradas desde hoy hasta tu próximo día de pago. El resultado es tu límite real para gastar en extras hoy — no el saldo de tu cuenta bancaria, sino lo que genuinamente puedes gastar sin quedarte corto.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-internet">
+            <summary class="faq-question">¿La app necesita conexión a internet?</summary>
+            <div class="faq-answer">
+              <p>No. ControlGastos es <strong>100% offline</strong>. Todos tus datos financieros se almacenan localmente en tu teléfono usando Hive, una base de datos local ultra rápida. No necesitas cuenta, no necesitas internet, no necesitas conectar tu banco.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-gastos-hormiga">
+            <summary class="faq-question">¿Qué son los gastos hormiga y cómo los controla la app?</summary>
+            <div class="faq-answer">
+              <p>Los <strong>gastos hormiga</strong> son pequeños pagos diarios que parecen insignificantes pero que acumulados drenan tu sueldo: el café de la mañana S/ 5, la botella de agua S/ 3, el bus S/ 3.50. ControlGastos tiene una sección dedicada a rastrearlos, visualizarlos y descontarlos de tu proyección diaria. S/ 11.50 al día son S/ 345 al mes.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-recurrentes">
+            <summary class="faq-question">¿Puedo configurar gastos que ocurren en días específicos o semanas alternas?</summary>
+            <div class="faq-answer">
+              <p>Sí. Las <strong>Reglas Recurrentes Flexibles</strong> te permiten configurar exactamente eso: "fútbol los martes y jueves a S/ 10", "gasolina cada dos semanas a S/ 20", o cualquier patrón de tu vida real. La app los descuenta automáticamente de tu proyección en las fechas correctas.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-precio">
+            <summary class="faq-question">¿Cuánto cuesta ControlGastos?</summary>
+            <div class="faq-answer">
+              <p><strong>Completamente gratis.</strong> No hay suscripción, no hay versión premium, no hay compras dentro de la app. ControlGastos es un proyecto personal construido para resolver un problema real. El modelo de negocio futuro, si lo hay, nunca comprometerá las funciones básicas de proyección y control.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#hero" class="logo" aria-label="Ir al inicio de ControlGastos">
+            <span class="logo-icon" aria-hidden="true">◈</span>
+            <span class="logo-text">Control<span class="logo-accent">Gastos</span></span>
+          </a>
+          <p class="footer-tagline">Por fin, una app de finanzas que entiende tus quincenas.</p>
+        </div>
+
+        <nav class="footer-links" aria-label="Navegación de la app">
+          <h3 class="footer-heading">App</h3>
+          <ul role="list">
+            <li><a href="#features" class="footer-link" id="footer-features">Características</a></li>
+            <li><a href="#como-funciona" class="footer-link" id="footer-como-funciona">Cómo Funciona</a></li>
+            <li><a href="#privacidad" class="footer-link" id="footer-privacidad">Privacidad</a></li>
+            <li><a href="#faq" class="footer-link" id="footer-faq">FAQ</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-links" aria-label="Acceso Beta">
+          <h3 class="footer-heading">Beta</h3>
+          <ul role="list">
+            <li><a href="#beta" class="footer-link" id="footer-beta">Acceso Anticipado</a></li>
+            <li><a href="privacy.html" class="footer-link" id="footer-privacy">Política de Privacidad</a></li>
+            <li><a href="terms.html" class="footer-link" id="footer-terms">Términos y Condiciones</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-links" aria-label="Tecnología del proyecto">
+          <h3 class="footer-heading">Tecnología</h3>
+          <ul role="list">
+            <li><span class="footer-tech-tag">Flutter</span></li>
+            <li><span class="footer-tech-tag">Arquitectura Limpia</span></li>
+            <li><span class="footer-tech-tag">Hive DB</span></li>
+            <li><span class="footer-tech-tag">Provider</span></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 ControlGastos. Todos los derechos reservados. Hecho con ☕ y Flutter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript — Cargado al final para no bloquear el rendering -->
+  <script src="app.js" defer></script>
+</body>
+
+</html>

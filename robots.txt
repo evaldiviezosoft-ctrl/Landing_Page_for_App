@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://evaldiviezosoft-ctrl.github.io/Landing_Page_for_App/sitemap.xml
